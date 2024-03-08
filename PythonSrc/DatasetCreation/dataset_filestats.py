@@ -101,13 +101,13 @@ def file_modif_date(f):
 
 def die_with_usage():
     """ HELP MENU """
-    print 'dataset_filestats.py'
-    print '   by T. Bertin-Mahieux (2010) Columbia University'
-    print '      tb2332@columbia.edu'
-    print 'Simple util to check the file repartition and the most'
-    print 'recent file in the Million Song dataset directory'
-    print 'usage:'
-    print '   python dataset_filestats.py <maindir>'
+    print ('dataset_filestats.py')
+    print ('   by T. Bertin-Mahieux (2010) Columbia University')
+    print ('      tb2332@columbia.edu')
+    print ('Simple util to check the file repartition and the most')
+    print ('recent file in the Million Song dataset directory')
+    print ('usage:')
+    print ('   python dataset_filestats.py <maindir>')
     sys.exit(0)
 
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                 pass
             else:
                 trim = True
-                print 'WE TRIM FOR REAL!!!!'
+                print ('WE TRIM FOR REAL!!!!')
         else:
             break
         sys.argv.pop(1)
@@ -137,43 +137,43 @@ if __name__ == '__main__':
 
     # number of leaves
     n_leaves = count_normal_leaves(maindir)
-    print '******************************************************'
-    print 'got',n_leaves,'leaves out of',26*26*26,'possible ones.'
+    print ('******************************************************')
+    print( 'got',n_leaves,'leaves out of',26*26*26,'possible ones.')
 
     # empty and full leaves
-    print '******************************************************'
+    print ('******************************************************')
     min_nfiles = min(MAP_NFILES_DIR.keys())
-    print 'most empty leave(s) have',min_nfiles,'files, they are:'
-    print MAP_NFILES_DIR[min_nfiles]
+    print ('most empty leave(s) have',min_nfiles,'files, they are:')
+    print (MAP_NFILES_DIR[min_nfiles])
     max_nfiles = max(MAP_NFILES_DIR.keys())
-    print 'most full leave(s) have',max_nfiles,'files, they are:'
-    print MAP_NFILES_DIR[max_nfiles]
+    print ('most full leave(s) have',max_nfiles,'files, they are:')
+    print (MAP_NFILES_DIR[max_nfiles])
     nfiles = 0
     for k in MAP_NFILES_DIR:
         nfiles += k * len(MAP_NFILES_DIR[k])
-    print 'we found',nfiles,'files in total'
-    print 'average number of files per leaf:',nfiles * 1. / n_leaves
+    print ('we found',nfiles,'files in total')
+    print ('average number of files per leaf:',nfiles * 1. / n_leaves)
 
     # tmp files
     ntmpfiles = len( get_all_files(maindir,ext='.h5_tmp') )
-    print 'we found',ntmpfiles,'temp files'
-    if ntmpfiles > 0: print 'WATCHOUT FOR TMP FILES!!!!'
+    print ('we found',ntmpfiles,'temp files')
+    if ntmpfiles > 0: print ('WATCHOUT FOR TMP FILES!!!!')
 
     # find modif date for all files, and pop out the most recent ones
     get_all_files_modif_date(maindir)
-    print '******************************************************'
+    print ('******************************************************')
     if not trim and not trimdryrun:
-        print 'most recent files are:'
+        print ('most recent files are:')
         for k in range(5):
             t,f = MODIFQUEUE.get_nowait()
-            print f,'(',time.ctime(-t),')'
+            print (f,'(',time.ctime(-t),')')
     elif trim or trimdryrun:
         ntoomany = nfiles - 1000000
-        print 'we have',ntoomany,'too many files.'
+        print ('we have',ntoomany,'too many files.')
         for k in range(ntoomany):
             t,f = MODIFQUEUE.get_nowait()
-            print f,'(',time.ctime(-t),')'
+            print (f,'(',time.ctime(-t),')')
             if trim:
                 os.remove(f)
     # done
-    print '******************************************************'
+    print ('******************************************************')

@@ -1,0 +1,9 @@
+# MILLION SONG GENRE DATASET
+# created by T. Bertin-Mahieux (2011) Columbia University
+# tb2332@columbia.edu
+# http://labrosa.ee.columbia.edu
+# GOAL: easy to use genre-like dataset extracted from the MSD
+#       Should not be used as a proper MIR task! Educational purposes only
+# FORMAT: # - denotes a comment
+          % - one line after comments, column names
+            - rest is data, comma-separated, one line per song
